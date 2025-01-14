@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .cell {
+            width: 50px;
+            height: 50px;
+            /*border: 1px solid black;*/
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* This allows absolute positioning of child elements */
+        }
+        .black {
+            background-color: black;
+        }
+        .white {
+            background-color: white;
+        }
+        .counter {
+            width: 90%;
+            height: 90%;
+            background-color: red;
+            border-radius: 50%; /* This makes the counter circular */
+            position: absolute; /* This positions the counter relative to the cell */
+        }
+        #letterT, #letterC {
+            text-align: center;
+            font-size: 2em; /* Increase the size of the letter */
+            color: black; /* Change the color to black */
+        }
+        #letterC {
+            margin-right: 10px; /* Add a gap to the right of the letter "c" */
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; align-items: center;">
+        <div id="letterC">c</div>
+        <div id="container">
+            <div id="board"></div>
+            <div id="letterT">t</div>
+        </div>
+    </div>
+    <script>
+        var board = document.getElementById('board');
+        for (var i = 0; i < 8; i++) {
+            for (var j = 0; j < 8; j++) {
+                var cell = document.createElement('div');
+                cell.className = 'cell ' + ((i + j) % 2 === 0 ? 'white' : 'black');
+                cell.addEventListener('click', function() {
+                    if (this.firstChild) {
+                        this.firstChild.remove();
+                    } else {
+                        var counter = document.createElement('div');
+                        counter.className = 'counter';
+                        this.appendChild(counter);
+                    }
+                });
+                board.appendChild(cell);
+            }
+            board.appendChild(document.createElement('br'));
+        }
+    </script>
+</body>
+</html>
